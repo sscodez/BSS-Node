@@ -1,0 +1,16 @@
+{
+  "name": "bss_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@firebase/firestore": "^4.1.0",
+    "coap": "^0.22.0",
+    "firebase": "^10.1.0"
+  }
+}
