@@ -190,6 +190,48 @@ async function data(req,res){
     }
   }  
 
+
+async function handleFrontBrake(req, res) {
+  try {
+    const bikeData = JSON.parse(req.payload.toString());
+    const bikeRef = doc(db, 'Bikes', bikeData.bikeId);
+    const bikeDoc = await getDoc(bikeRef);
+
+    if (bikeDoc.exists() && bikeDoc.data().cyclistId === bikeData.cyclistId) {
+      const currentFrontBrake = bikeDoc.data().frontBrake;
+      await updateDoc(bikeRef, { frontBrake: !currentFrontBrake });
+      res.end('Front brake toggled successfully');
+    } else {
+      res.code = '4.00'; // Bad Request
+      res.end('Invalid bike ID or cyclist ID');
+    }
+  } catch (error) {
+    res.code = '5.00'; // Internal Server Error
+    res.end();
+  }
+}
+
+// Toggle rear brake resource
+async function handleRearBrake(req, res) {
+  try {
+    const bikeData = JSON.parse(req.payload.toString());
+    const bikeRef = doc(db, 'Bikes', bikeData.bikeId);
+    const bikeDoc = await getDoc(bikeRef);
+
+    if (bikeDoc.exists() && bikeDoc.data().cyclistId === bikeData.cyclistId) {
+      const currentRearBrake = bikeDoc.data().rearBrake;
+      await updateDoc(bikeRef, { rearBrake: !currentRearBrake });
+      res.end('Rear brake toggled successfully');
+    } else {
+      res.code = '4.00'; // Bad Request
+      res.end('Invalid bike ID or cyclist ID');
+    }
+  } catch (error) {
+    res.code = '5.00'; // Internal Server Error
+    res.end();
+  }
+}
+
 // Handler for GET request on root route "/"
 function handleRootRequest(req, res) {
   if (req.method === 'GET') {
@@ -232,15 +274,15 @@ server.on('request', (req, res) => {
   }
   else if (req.url === '/endrentBikes') {
     handleEndRentBikes(req, res);
-    console.log(`Rent Bikes Route`);
+    console.log(`End Rent Bikes Route`);
   }
   else if (req.url === '/frontBreak') {
-    handleFrontBreak(req, res);
-    console.log(`Rent Bikes Route`);
+    handleFrontBrake(req, res);
+    console.log(`Front Brake Bikes Route`);
   }    
   else if (req.url === '/rearBreak') {
     handleRearBrake(req, res);
-    console.log(`Rent Bikes Route`);
+    console.log(`Rear Brake Route`);
   }    
   else {
     res.code = '4.04'; // Not Found
