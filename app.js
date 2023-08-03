@@ -213,8 +213,6 @@ function handleRootRequest(req, res) {
 server.on('request', (req, res) => {
   if (req.url === '/') {
     handleRootRequest(req, res);
-  } else if (req.url === '/hello') {
-    handleHelloRequest(req, res);
   } 
   else if (req.url === '/addBikes') {
     handleAddBikes(req, res);
@@ -231,8 +229,19 @@ server.on('request', (req, res) => {
   else if (req.url === '/rentBikes') {
     handleRentBikes(req, res);
     console.log(`Rent Bikes Route`);
-  }  
-  
+  }
+  else if (req.url === '/endrentBikes') {
+    handleEndRentBikes(req, res);
+    console.log(`Rent Bikes Route`);
+  }
+  else if (req.url === '/frontBreak') {
+    handleFrontBreak(req, res);
+    console.log(`Rent Bikes Route`);
+  }    
+  else if (req.url === '/rearBreak') {
+    handleRearBrake(req, res);
+    console.log(`Rent Bikes Route`);
+  }    
   else {
     res.code = '4.04'; // Not Found
     res.end();
