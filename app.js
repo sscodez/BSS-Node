@@ -12,8 +12,6 @@ const {
   } = require('firebase/firestore/lite');
 const server = coap.createServer();
 
-
-
 function handleAddBikes(req, res) {
     if (req.method === 'POST' && req.url === '/addBikes') {
  
@@ -167,7 +165,7 @@ async function data(req,res){
     }
 }
 async function handleEndRentBikes(req, res) {
-  if (req.method === 'POST' && req.url === '/rentBikes') {
+  if (req.method === 'POST' && req.url === '/endrentBikes') {
       try {
           const collectionName = 'Bikes';
           res.setOption('Content-Format','application/json');
